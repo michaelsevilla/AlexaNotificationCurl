@@ -1,3 +1,6 @@
+#/bin/bash
+
+set -ex
 ############################################################
 # First we creat a bunch of variables to hold data.
 ############################################################
@@ -64,7 +67,7 @@ echo "Creating voice..."
 #espeak -v en-us "${QUESTION}" --stdout | tee espeak.out | sox - -c 1 -r 16000 -e signed -b 16 -t wav - >> multipart_body.txt
 rm /tmp/pipe.wav
 ln -s /dev/stdout /tmp/pipe.wav
-pico2wave -w /tmp/pipe.wav "${QUESTION}" | tee pico2wav.wav | sox - -c 1 -r 16000 -e signed -b 16 -t wav - >> multipart_body.txt
+pico2wave -w /tmp/pipe.wav "${QUESTION}" | tee pico2wav.wav | sox - -c 1 -r 16000 -e signed -b 16 -t wav - >> multipart_body.txt 2>/dev/null
 
 # Then we append closing boundary to request body file.
 echo -e $POST_DATA_END >> multipart_body.txt
